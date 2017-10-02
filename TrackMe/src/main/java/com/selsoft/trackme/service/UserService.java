@@ -11,5 +11,7 @@ import com.selsoft.trackme.model.User;
 public interface UserService {
 
 	public Errors saveUser(User user) ;
+	public Errors saveUserLogin(User user) ;
+	
 
 }

@@ -31,5 +31,13 @@ public class UserDaoImpl implements UserDao {
 		logger.info("User "+user.getFirstName() + " Saved in Database");
 
 	}
+	
+	@Override
+	public void saveUserLogin(User user) {
+
+		template.save(user);
+		logger.info("User Email "+user.getEmail() + " Saved in Database");
+
+	}
 
 }

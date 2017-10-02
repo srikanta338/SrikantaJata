@@ -13,6 +13,7 @@ import com.selsoft.trackme.model.Errors;
 import com.selsoft.trackme.model.User;
 import com.selsoft.trackme.service.UserService;
 
+
 /**
  * 
  * @author Sudhansu Sekhar
@@ -39,5 +40,18 @@ public class UserController {
 		logger.info("Data retrived from UserController getUser()");
 		return new ResponseEntity<User>(new User(), HttpStatus.ACCEPTED);
 	}
+	
+	@RequestMapping(value = "/user-login", method = RequestMethod.POST)
+	public ResponseEntity<Errors> userLogIn(@RequestBody User user) {
+		logger.info(user.getEmail() + " data comes into UserController saveUser() for processing");
+		if(user.getEmail() == null && user.getEmail().equalsIgnoreCase("") && user.getPassword() == null && user.getPassword().equalsIgnoreCase(""))
+		{
+		return new ResponseEntity<Errors>(HttpStatus.BAD_REQUEST);
+		}
+		Errors errors = userService.saveUserLogin(user);
+		return new ResponseEntity<Errors>(errors, HttpStatus.CREATED);
+		
+	}
+
 
 }

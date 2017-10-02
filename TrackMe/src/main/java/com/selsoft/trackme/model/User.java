@@ -16,6 +16,9 @@ public class User {
 	@Id
 	private String email;
 	private String password;
+	private boolean loggedOn;
+	private String lastAccessed;
+	
 
 	public String getFirstName() {
 		return firstName;
@@ -48,6 +51,22 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public boolean isLoggedOn() {
+		return loggedOn;
+	}
+
+	public void setLoggedOn(boolean loggedOn) {
+		this.loggedOn = loggedOn;
+	}
+
+	public String getLastAccessed() {
+		return lastAccessed;
+	}
+
+	public void setLastAccessed(String lastAccessed) {
+		this.lastAccessed = lastAccessed;
+	}
 
 	@Override
 	public String toString() {
@@ -60,6 +79,10 @@ public class User {
 		builder.append(email);
 		builder.append(", password=");
 		builder.append(password);
+		builder.append(", loggedOn=");
+		builder.append(loggedOn);
+		builder.append(", lastAccessed=");
+		builder.append(lastAccessed);
 		builder.append("]");
 		return builder.toString();
 	}
