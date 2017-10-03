@@ -37,9 +37,37 @@ public class UserServiceImpl implements UserService {
 	public Errors saveUser(User user) {
 		if (isValid(user)) {
 			logger.info("User data is Valid and processing to Dao");
+			String encryptPass=Utils.encryptPassword(user.getPassword());
+			user.setPassword(encryptPass);
 			userDao.saveUser(user);
 		} else {
 			logger.info("User data is not Valid returning Error Data");
+			return getError(user);
+		}
+		return null;
+	}
+
+	public Errors saveUserLogin(User user) {
+		if (isValidUser(user)) {
+			logger.info("User data is Valid and processing to Dao");
+
+			String password = user.getPassword();
+			try {
+				// encrypting the password seeing to User object
+				// setting last accessed time & userlogin boolean flag.
+				String encryptPwd = Utils.encryptPassword(password);
+				user.setPassword(encryptPwd);
+				user.setLoggedOn(true);
+				Calendar time = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+				Date date = time.getTime();
+				user.setLastAccessed(date.toString());
+				userDao.saveUserLogin(user);
+			} catch (Exception e) {
+				// throw custom seception
+			}
+
+		} else {
+			logger.info("Email Id or Password are not valid returning Error Data");
 			return getError(user);
 		}
 		return null;
@@ -85,50 +113,22 @@ public class UserServiceImpl implements UserService {
 		return errors;
 
 	}
-	
+
 	public boolean isValidUser(User user) {
-		
+
 		String email = user.getEmail();
 		String password = user.getPassword();
-		
+
 		ValidError emailErrors = validation.emailValidation(email);
 		ValidError passwordErrors = validation.passwordValidation(password);
 
-		if ("Success".equals(emailErrors.getErrorCode())
-				&& "Success".equals(passwordErrors.getErrorCode())) {
+		if ("Success".equals(emailErrors.getErrorCode()) && "Success".equals(passwordErrors.getErrorCode())) {
 			return true;
 		} else {
 			return false;
 		}
 
 	}
-
-	public Errors saveUserLogin(User user) {
-		if (isValidUser(user)) {
-			logger.info("User data is Valid and processing to Dao");
-			
-			String password = user.getPassword();
-			try {
-				// encrypting the password seeing to User object
-				// setting last accessed time & userlogin boolean flag.
-			String encryptPwd = Utils.encryptPassword(password);
-			user.setPassword(encryptPwd);
-			user.setLoggedOn(true);
-			Calendar time = Calendar.getInstance();
-			time.add(Calendar.MILLISECOND, -time.getTimeZone().getOffset(time.getTimeInMillis()));
-			Date date = time.getTime();
-			user.setLastAccessed(date.toString());
-			userDao.saveUserLogin(user);
-			}
-			catch(Exception e) {
-				// throw custom seception
-			}
-			
-		} else {
-			logger.info("Email Id or Password are not valid returning Error Data");
-			return getError(user);
-		}
-		return null;
-	}
+	
 
 }
