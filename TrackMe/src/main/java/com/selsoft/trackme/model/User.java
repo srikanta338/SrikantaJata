@@ -17,7 +17,7 @@ public class User {
 	private String email;
 	private String password;
 	private boolean loggedOn;
-	private String lastAccessed;
+	private String lastAccessed="";
 	
 
 	public String getFirstName() {
