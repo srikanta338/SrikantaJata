@@ -12,6 +12,11 @@ public interface UserService {
 
 	public Errors saveUser(User user) ;
 	public Errors saveUserLogin(User user) ;
+	public void createPasswordResetTokenForUser(User user, String token);
+	public User findUserByEmail(String userEmail);
+	public String validatePasswordResetToken(long id, String token);
+	public void forgotPassword(String email);
 	
-
+	
+ 
 }
