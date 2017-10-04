@@ -52,11 +52,41 @@ public class UserServiceImpl implements UserService {
 	public Errors saveUser(User user) {
 		if (isValid(user)) {
 			logger.info("User data is Valid and processing to Dao");
+<<<<<<< HEAD
 			String encryptPass = Utils.encryptPassword(user.getPassword());
+=======
+			String encryptPass=Utils.encryptPassword(user.getPassword());
+>>>>>>> refs/remotes/origin/master
 			user.setPassword(encryptPass);
 			userDao.saveUser(user);
 		} else {
 			logger.info("User data is not Valid returning Error Data");
+			return getError(user);
+		}
+		return null;
+	}
+
+	public Errors saveUserLogin(User user) {
+		if (isValidUser(user)) {
+			logger.info("User data is Valid and processing to Dao");
+
+			String password = user.getPassword();
+			try {
+				// encrypting the password seeing to User object
+				// setting last accessed time & userlogin boolean flag.
+				String encryptPwd = Utils.encryptPassword(password);
+				user.setPassword(encryptPwd);
+				user.setLoggedOn(true);
+				Calendar time = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+				Date date = time.getTime();
+				user.setLastAccessed(date.toString());
+				userDao.saveUserLogin(user);
+			} catch (Exception e) {
+				// throw custom seception
+			}
+
+		} else {
+			logger.info("Email Id or Password are not valid returning Error Data");
 			return getError(user);
 		}
 		return null;
@@ -157,6 +187,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 	}
+<<<<<<< HEAD
 
 	private SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, User user) {
 		String url = contextPath + "/user/changePassword?id=" + user.getEmail() + "&token=" + token;
@@ -190,5 +221,8 @@ public class UserServiceImpl implements UserService {
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return null;
 	}
+=======
+	
+>>>>>>> refs/remotes/origin/master
 
 }

@@ -10,8 +10,13 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+<<<<<<< HEAD
 import com.selsoft.trackme.model.PasswordResetToken;
+=======
+import com.selsoft.trackme.model.Errors;
+>>>>>>> refs/remotes/origin/master
 import com.selsoft.trackme.model.User;
+import com.selsoft.trackme.service.UserServiceImpl;
 
 /**
  * 
@@ -28,10 +33,16 @@ public class UserDaoImpl implements UserDao {
 	/*
 	 * (non-Javadoc)
 	 * 
+<<<<<<< HEAD
 	 * @see
 	 * com.selsoft.trackme.dao.UserDao#saveUser(com.selsoft.trackme.model.User)
 	 * When User data comes from Service This method, will saves the Data into
 	 * DB by calling MongoTemplate save()
+=======
+	 * @see com.selsoft.trackme.dao.UserDao#saveUser(com.selsoft.trackme.model.User)
+	 * When User data comes from Service This method, will saves the Data into DB by
+	 * calling MongoTemplate save()
+>>>>>>> refs/remotes/origin/master
 	 * 
 	 */
 	@Override
@@ -39,8 +50,26 @@ public class UserDaoImpl implements UserDao {
 
 		template.save(user);
 		logger.info("User " + user.getFirstName() + " Saved in Database");
+<<<<<<< HEAD
+=======
 
 	}
+
+	@Override
+	public void saveUserLogin(User user) {
+		
+		Query query = new Query(Criteria.where("email").is(user.getEmail().toLowerCase()));
+		Update update=new Update();
+		update.set("loggedOn", user.isLoggedOn());
+		update.set("lastAccessed", user.getLastAccessed());
+
+		template.updateFirst(query, update, User.class);
+
+		logger.info("User Email " + user.getEmail() + " last access time "+user.getLastAccessed());
+>>>>>>> refs/remotes/origin/master
+
+	}
+<<<<<<< HEAD
 
 	@Override
 	public void saveUserLogin(User user) {
@@ -75,5 +104,8 @@ public class UserDaoImpl implements UserDao {
 	public void saveResetPasswordToken(PasswordResetToken token) {
 		
 	}
+=======
+	
+>>>>>>> refs/remotes/origin/master
 
 }

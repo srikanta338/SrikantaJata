@@ -22,5 +22,6 @@ public class MailServiceTest {
 			System.out.println(service.sendMail(mailId, "Sample Text",
 					"Hi Basant How are you"));
 		}
+	
 
 }

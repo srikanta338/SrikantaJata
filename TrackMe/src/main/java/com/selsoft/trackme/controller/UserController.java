@@ -9,7 +9,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
 import org.springframework.security.core.context.SecurityContextHolder;
+=======
+import org.springframework.stereotype.Controller;
+>>>>>>> refs/remotes/origin/master
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +44,7 @@ public class UserController {
 	private UserService userService;
 
 	/**
+<<<<<<< HEAD
 	 * This handler method is for the User Registration, This will transfer the
 	 * data to Service. The User Data will be Binded to the User Object which is
 	 * coming from the Client.
@@ -49,6 +54,16 @@ public class UserController {
 	 *            the Registration Form.
 	 * @return the Errors Object as JSON Object, If any Validation error occurs
 	 *         for the I/P data.
+=======
+	 * This handler method is for the User Registration, This will transfer the data
+	 * to Service. The User Data will be Binded to the User Object which is coming
+	 * from the Client.
+	 * 
+	 * @param user as binding object to hold the User's Registration Data from the
+	 *            Registration Form.
+	 * @return the Errors Object as JSON Object, If any Validation error occurs for
+	 *         the I/P data.
+>>>>>>> refs/remotes/origin/master
 	 */
 	@RequestMapping(value = "add-user", method = RequestMethod.POST)
 	public ResponseEntity<Errors> saveUser(@RequestBody User user) {
@@ -81,9 +96,13 @@ public class UserController {
 		}
 		Errors errors = userService.saveUserLogin(user);
 		return new ResponseEntity<Errors>(errors, HttpStatus.CREATED);
+<<<<<<< HEAD
 
 	}
+=======
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
 	@RequestMapping(value = "/user/resetPassword", method = RequestMethod.POST)
 	@ResponseBody
 	public GenericResponse resetPassword(HttpServletRequest request, @RequestParam("email") String userEmail) {
@@ -105,6 +124,8 @@ public class UserController {
 
 		userService.changeUserPassword(user, passwordDto.getNewPassword());
 		return new GenericResponse(messages.getMessage("message.resetPasswordSuc", null, locale));
+=======
+>>>>>>> refs/remotes/origin/master
 	}
 
 }

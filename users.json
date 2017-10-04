@@ -1,0 +1,9 @@
+{
+	"_class" : "com.selsoft.trackme.model.User",
+	"_id" : "sudahansubarik1983@gmail.com",
+	"firstName" : "Sudhansu",
+	"lastAccessed" : "Tue Oct 03 16:32:02 IST 2017",
+	"lastName" : "Barik",
+	"loggedOn" : true,
+	"password" : "UJl2dyGh0E8=MTIzNDUjQXBw"
+},
